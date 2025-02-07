@@ -1,0 +1,16 @@
+{
+    "shippingInfo": {
+      "lastName": "Riba",
+      "firstName": "Cristian",
+      "streetName": "Rua Caldereria, 37",
+      "streetNameExtra": "Apt 2",
+      "city": "Fake-Town"
+    },
+    "postalCode": "28820",
+    "phoneNumber": "618058564",
+    "billingInfo": {
+      "birthDate": "01/01/2000",
+      "email": "test@playwright.com"
+    }
+  }
+  

@@ -1,0 +1,16 @@
+{
+    "shippingInfo": {
+      "firstName" : "Violette",
+      "lastName" : "Bellefeuille",
+      "streetName" : "Rue de la belle feuille",
+      "streetNameExtra" : "Appartement 3",
+      "city": "Ville-Fictive"
+    },
+    "postalCode": "28820",
+    "phoneNumber": "0606060606",
+    "billingInfo": {
+      "birthDate": "01/01/2000",
+      "email": "test@playwright.com"
+    }
+  }
+  
