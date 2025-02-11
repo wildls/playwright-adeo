@@ -32,27 +32,27 @@ export default class KiabiProductPage {
 
   /**
    * Retrieves the product label.
-   * @returns {Promise<string | null>} The product label text.
+   * @returns {Promise<string>} The product label text.
    * @author William
    */
-  public async getProductLabel(): Promise<string | null> {
+  public async getProductName(): Promise<string> {
     return await test.step("Get product label", async () => {
-      return await this.kiabiProductPageLocators
+      return (await this.kiabiProductPageLocators
         .spanProductLabel()
-        .textContent();
+        .textContent()) as string;
     });
   }
 
   /**
    * Retrieves the product price.
-   * @returns {Promise<string | null>} The product price text.
+   * @returns {Promise<string>} The product price text.
    * @author William
    */
-  public async getProductPrice(): Promise<string | null> {
+  public async getProductPrice(): Promise<string> {
     return await test.step("Get product price", async () => {
-      return await this.kiabiProductPageLocators
+      return (await this.kiabiProductPageLocators
         .divProductPrice()
-        .textContent();
+        .textContent()) as string;
     });
   }
 

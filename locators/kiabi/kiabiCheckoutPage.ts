@@ -9,7 +9,6 @@ export default class KiabiCheckoutPageLocators {
     this.locale = locale;
   }
 
-  // Common locators
   inputPostalCode = () => this.page.getByTestId("postalCode_input_postalCode");
   buttonConfirmPostalCode = () =>
     this.page.getByTestId("postalCode_button_validate");
@@ -22,8 +21,9 @@ export default class KiabiCheckoutPageLocators {
   inputPhoneNumber = () => this.page.getByTestId("mobileForm-mobile");
   buttonValidateShippingStep = () =>
     this.page.getByTestId("shippingStep_button_validate");
+  divPostalCodeErrorMessage = () =>
+    this.page.getByTestId("postalCode_div_errorMessage");
 
-  // Dynamic locators for address form
   inputFormLastName = () =>
     this.page.getByTestId(`homeAddressForm${this.locale}_input_lastName`);
   inputFormFirstName = () =>
@@ -45,8 +45,6 @@ export default class KiabiCheckoutPageLocators {
   buttonCompleteShippingForm = () =>
     this.page.getByTestId(`homeAddressForm${this.locale}_button_validate`);
 
-  // Dynamic locators for billing form
-  // Note: If the button text also changes based on language, you might need to handle that separately.
   spanCompleteForm = () =>
     this.page.getByRole("button", {
       name: this.locale === "FR" ? "Compléter" : "Completar",
@@ -121,8 +119,8 @@ export default class KiabiCheckoutPageLocators {
   inputOney = () => this.page.locator('input[type="radio"][value="PNF"]');
   labelOney = () =>
     this.page.getByTestId("paymentStepPayline_radio_paymentOptions_PNF");
-  //buttonOney = () =>
-  //this.page.getByTestId("checkoutPaymentStep_validatePayment_PNF");
+  buttonOney = () =>
+    this.page.getByTestId("checkoutPaymentStep_validatePayment_PNF");
   divPaymentOnDelivery = () =>
     this.page.locator('div[id*="PaymentOptionContentContainer_CRBT"]');
   inputPaymentOnDelivery = () =>

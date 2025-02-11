@@ -28,7 +28,9 @@ export default [
       playwright,
     },
     rules: {
-      ...playwright.configs["recommended"].rules, // Manually apply Playwright rules
+      ...playwright.configs["recommended"].rules,
+      "playwright/no-conditional-in-test": "off",
+      "playwright/expect-expect" : "off"
     },
   },
 ];

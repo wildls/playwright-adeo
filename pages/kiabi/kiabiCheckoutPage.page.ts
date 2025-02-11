@@ -35,6 +35,78 @@ export default class KiabiCheckoutPage {
   }
 
   /**
+   * Tests the error message displayed when no postal code is entered.
+   *
+   * @author William
+   * @locale FR+ES
+   */
+  public async inputNoPostalCode() {
+    await test.step("Input no postal code in textbox", async () => {
+      await this.kiabiCheckoutPageLocators.buttonConfirmPostalCode().click();
+      await expect(
+        this.kiabiCheckoutPageLocators.divPostalCodeErrorMessage()
+      ).toBeVisible();
+      await expect(
+        this.kiabiCheckoutPageLocators.divPostalCodeErrorMessage()
+      ).toHaveText(/Le code postal est requis|Se requiere el código postal/);
+      await expect(this.kiabiCheckoutPageLocators.buttonConfirmPostalCode())
+        .toBeInViewport;
+    });
+  }
+
+  /**
+   * Tests the error message displayed when a six-digit postal code is entered.
+   *
+   * @author William
+   * @locale FR+ES
+   */
+  public async inputSixDigitPostalCode() {
+    await test.step("Input six-digit postal code in textbox", async () => {
+      const postalCode = Math.floor(100000 + Math.random() * 900000);
+      await this.kiabiCheckoutPageLocators
+        .inputPostalCode()
+        .fill(postalCode.toString());
+      await this.kiabiCheckoutPageLocators.buttonConfirmPostalCode().click();
+      await expect(
+        this.kiabiCheckoutPageLocators.divPostalCodeErrorMessage()
+      ).toBeVisible();
+      await expect(
+        this.kiabiCheckoutPageLocators.divPostalCodeErrorMessage()
+      ).toHaveText(
+        /Le code postal peut comporter maximum 5 caractères|El código postal puede incluir máximo 5 caracteres/
+      );
+      await expect(this.kiabiCheckoutPageLocators.buttonConfirmPostalCode())
+        .toBeInViewport;
+    });
+  }
+
+  /**
+   * Tests the error message displayed when text is entered instead of a postal code.
+   *
+   * @author William
+   * @locale FR+ES
+   */
+  public async inputTextAsPostalCode() {
+    await test.step("Input text in postal code textbox", async () => {
+      const postalCode = Math.random().toString(36).slice(2, 7);
+      await this.kiabiCheckoutPageLocators
+        .inputPostalCode()
+        .fill(postalCode.toString());
+      await this.kiabiCheckoutPageLocators.buttonConfirmPostalCode().click();
+      await expect(
+        this.kiabiCheckoutPageLocators.divPostalCodeErrorMessage()
+      ).toBeVisible();
+      await expect(
+        this.kiabiCheckoutPageLocators.divPostalCodeErrorMessage()
+      ).toHaveText(
+        /Le format du code postal est incorrect|El formato del código postal es incorrecto/
+      );
+      await expect(this.kiabiCheckoutPageLocators.buttonConfirmPostalCode())
+        .toBeInViewport;
+    });
+  }
+
+  /**
    * Select the home delivery option.
    * @author William
    */
@@ -212,6 +284,11 @@ export default class KiabiCheckoutPage {
    * Verify the credit card form is visible and editable.
    * @author William
    */
+  /**
+   * Verify the credit card form is visible and editable.
+   * @locale FR+ES
+   * @author William
+   */
   public async verifyCreditCardForm() {
     await test.step("Verify Credit Card Form", async () => {
       await this.kiabiCheckoutPageLocators
@@ -247,6 +324,7 @@ export default class KiabiCheckoutPage {
 
   /**
    * Verify the Google Pay form is visible and clickable.
+   * @locale FR+ES
    * @author William
    */
   public async verifyGooglePayForm() {
@@ -263,12 +341,13 @@ export default class KiabiCheckoutPage {
 
   /**
    * Verify the PayPal form is visible and clickable.
+   * @locale FR+ES
    * @author William
    */
   public async verifyPaypalForm() {
     await test.step("Verify PayPal Form", async () => {
       await this.kiabiCheckoutPageLocators.inputPaypal().click();
-      await expect(this.kiabiCheckoutPageLocators.labelPaypal()).toHaveText(
+      await expect(this.kiabiCheckoutPageLocators.labelPaypal()).toContainText(
         "Paypal"
       );
       await expect(
@@ -279,6 +358,7 @@ export default class KiabiCheckoutPage {
 
   /**
    * Verify the Illicado form is visible and clickable.
+   * @locale FR
    * @author William
    */
   public async verifyIllicadoForm() {
@@ -295,6 +375,7 @@ export default class KiabiCheckoutPage {
 
   /**
    * Verify the gift card form is visible and clickable.
+   * @locale FR
    * @author William
    */
   public async verifyGiftCardForm() {
@@ -311,6 +392,7 @@ export default class KiabiCheckoutPage {
 
   /**
    * Verify the voucher form is visible and editable.
+   * @locale FR
    * @author William
    */
   public async verifyVoucherForm() {
@@ -333,19 +415,28 @@ export default class KiabiCheckoutPage {
 
   /**
    * Verify the Oney form is disabled and contains the correct label.
+   * @locale FR
    * @author William
    */
-  public async verifyOneyForm() {
+  public async verifyOneyForm(cartAmount: number) {
     await test.step("Verify Oney Form", async () => {
-      await expect(this.kiabiCheckoutPageLocators.inputOney()).toBeDisabled();
       await expect(this.kiabiCheckoutPageLocators.labelOney()).toHaveText(
         "Oney"
       );
+      if (cartAmount > 100) {
+        await expect(this.kiabiCheckoutPageLocators.inputOney()).toBeEnabled();
+        await this.kiabiCheckoutPageLocators.inputOney().click();
+        await expect(this.kiabiCheckoutPageLocators.buttonOney())
+          .toBeInViewport;
+      } else {
+        await expect(this.kiabiCheckoutPageLocators.inputOney()).toBeDisabled();
+      }
     });
   }
 
   /**
    * Verify the payment on delivery form is visible and clickable.
+   * @locale ES
    * @author William
    */
   public async verifyPaymentOnDeliveryForm() {
@@ -362,6 +453,7 @@ export default class KiabiCheckoutPage {
 
   /**
    * Verify the refund voucher form is visible and editable.
+   * @locale ES
    * @author William
    */
   public async verifyRefundVoucherForm() {

@@ -7,7 +7,10 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "@locators/*": ["locators/*"]
+      "@locators/*": ["locators/*"],
+      "@pages/*": ["pages/*"],
+      "@tests/*": ["tests/*"],
+      "@data/*": ["data/*"]
     }
   },
   "include": ["**/*.ts"],
