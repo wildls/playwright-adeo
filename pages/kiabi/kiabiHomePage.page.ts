@@ -33,12 +33,13 @@ export default class KiabiHomePage {
   }
 
   /**
-   * Selects the first product from the search results.
+   * Selects a product from the search results list.
+   * @param position - The position of the product in the list (0-indexed).
    * @author William
    */
-  public async selectFirstResult() {
+  public async selectFromResults(position: number) {
     await test.step("Select first product from results", async () => {
-      await this.kiabiHomePageLocators.spanResultsList().first().click();
+      await this.kiabiHomePageLocators.spanResultsList().nth(position).click();
     });
   }
 }
